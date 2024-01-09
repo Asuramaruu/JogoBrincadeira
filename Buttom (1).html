@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Velha</title>
+    <style>  
+
+        .comandos
+        {
+            background-color: dimgray;
+            width: 150px;
+            margin: 5px;
+            text-align: center;
+            padding: 15px;
+
+
+        }
+        .buttom1
+        {
+            background-color: blue;
+            border-radius: 50px;
+            margin: 5px;
+            padding: 50px;
+            text-align: center;
+           
+    
+        }
+
+        .buttom2
+        {
+            text-align: center;
+            padding: 50px;
+            margin: 5px;
+            border-radius: 50px;
+            background-color:green;
+        }
+        .buttom3
+        {
+            text-align: center;
+            padding: 50px;
+            margin: 5px;
+            border-radius: 50px;
+            background-color:blue;
+        }
+        
+        .buttom4
+        {
+            text-align: center;
+            padding:50px;
+            margin: 5px;
+            border-radius: 50px;
+            background-color:green
+            
+        }    
+        .buttom5
+        {
+            background-color:green;
+            border-radius: 50px;
+            margin: 5px;
+            padding: 50px;
+            text-align: center;
+
+        }
+        .buttom6
+        {
+            background-color: green;
+            border-radius: 50px;
+            margin: 5px;
+            padding: 50px;
+            text-align: center;
+        }
+        .buttom7
+        {
+            background-color: blue;
+            border-radius: 50px;
+            margin: 5px ;
+            padding: 50px;
+            text-align: center;
+        }
+        .buttom8
+        {
+            background-color: green;
+            border-radius: 50px;
+            margin: 5px;
+            padding: 50px;
+            text-align: center;
+        }
+        .buttom9
+        {
+            background-color: blue;
+            border-radius: 50px;
+            margin: 5px;
+            padding: 50px;
+            text-align: center;
+        }
+
+        body{
+            background-image: url(https://mocah.org/uploads/posts/340284-KDA-Seraphine-Akali-KaiSa-Ahri-Evelynn-LoL-Video-Game-League-of-Legends.jpg);
+            background-size: 125%;
+            background-repeat: no-repeat;
+        
+        }
+
+        .container{
+            display: grid;
+            justify-content: center;
+            align-items: center;
+
+            grid-template-columns: 200px 200px 200px;
+            grid-template-rows: 200px 200px 200px;
+            grid-auto-rows: 1fr;
+            gap: 1px 1px;
+            grid-auto-flow: row;
+            grid-template-areas: 
+                ". . ."
+                ". . ."
+                ". . ."
+                ;
+                   
+        }
+
+        
+    </style>
+</head>
+<body>
+    <!-- O professor havia reclamado do tamanho dos botões, que estavam um pouco pequeno para o tamanho da tela, então eu aumentei todos os 9. -->
+    <!-- No primeiro eu não havia criado a inovação solicitada, então nesse eu criei um jogo da velha onde você joga contra um bot, sendo que
+    ao você escolher um botão o bot gera um número aleatório pelo math.random e se esse botão não tiver sido escolhido pelo jogador, o bot o 
+    seleciona, se o botão escolhido pelo bot for um que já foi escolhido pelo jogador, o bot irá gerar outro botão aleatório até ele conseguir 
+    encaixar.-->
+
+
+
+    <div class="container">
+
+        
+        <button id="botão1" onclick="tratarBotao(1)" class="buttom1"></button>
+        <button id="botão2" onclick="tratarBotao(2)" class="buttom2"></button>
+        <button id="botão3" onclick="tratarBotao(3)" class="buttom3"></button>
+       
+        <button id="botão4" onclick="tratarBotao(4)" class="buttom4"></button>
+        <button id="botão5" onclick="tratarBotao(5)" class="buttom5"></button>
+        <button id="botão6" onclick="tratarBotao(6)" class="buttom6"></button>
+        
+        <button id="botão7" onclick="tratarBotao(7)" class="buttom7"></button>
+        <button id="botão8" onclick="tratarBotao(8)" class="buttom8"></button>
+        <button id="botão9" onclick="tratarBotao(9)" class="buttom9"></button>
+        
+        <div id="divResultado"></div>
+    </div>
+        <button onclick="Reset()" class="comandos">Reset</button>
+        <script>
+            var proximaJogada = "X"
+            var vencedor = "Ninguém"
+            var contJogadas = 0
+            var n
+            var proximaBot = "O"
+            var perdedor
+            
+
+
+
+        function tratarBotao(botao)
+        {
+            var identificador = "botão" + botao
+            if(document.getElementById(identificador).innerText == "" && vencedor=="Ninguém")
+            {
+                contJogadas++
+                document.getElementById(identificador).innerText = "X"
+    
+                //  if(proximaJogada == "X")
+                // {
+                //     proximaJogada = "O"
+                // }else
+                // {
+                //     proximaJogada = "X"
+                // }
+                
+                
+                verificarVencedor()
+                console.log(contJogadas)
+                console.log(vencedor)
+                if (contJogadas!=9 && vencedor=="Ninguém" )
+                {
+                    tratarBot()
+                    verificarVencedor()  
+                }
+
+            }
+
+            function tratarBot()
+            {
+                
+                    do {
+                      n=Math.ceil(Math.random()*9)
+                    }while(document.getElementById("botão"+n).innerText != "")
+                    document.getElementById("botão"+n).innerText ="O"
+                    contJogadas++
+                
+            }
+
+            function verificarVencedor()
+            {
+
+                var b1 = document.getElementById("botão1").innerText
+                var b2 = document.getElementById("botão2").innerText
+                var b3 = document.getElementById("botão3").innerText
+                
+                var b4 = document.getElementById("botão4").innerText
+                var b5 = document.getElementById("botão5").innerText
+                var b6 = document.getElementById("botão6").innerText
+                
+                var b7 = document.getElementById("botão7").innerText
+                var b8 = document.getElementById("botão8").innerText
+                var b9 = document.getElementById("botão9").innerText
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                if(b1==b2 && b2==b3 && b1!="")
+                {
+                    vencedor=b1
+                    alert(vencedor + " " + "Ganhou!")
+                }
+                if(b4==b5 && b5==b6 && b4!="")
+                {
+                    vencedor=b4
+                    alert(vencedor + " " + "Ganhou!")
+                }
+                if(b7==b8 && b8==b9 && b7!="")
+                {
+                    vencedor=b7
+                    alert(vencedor + " " + "Ganhou!")
+                }
+                if(b1==b5 && b5==b9 && b1!="")
+                {
+                    vencedor=b1
+                    alert(vencedor + " " + "Ganhou!")
+                }
+                
+                if(b1==b4 && b4==b7 && b1!="")
+                {
+                    vencedor=b1
+                    alert(vencedor + " " + "Ganhou!")
+                }
+                if(b2==b5 && b5==b8 && b2!="")
+                {
+                    vencedor=b2
+                    alert(vencedor + " " + "Ganhou!")
+                }
+                if(b3==b6 && b6==b9 && b3!="")
+                {
+                    vencedor=b3
+                    alert(vencedor + " " + "Ganhou!")
+                }
+                if(b3==b5 && b5==b7 && b3!="")
+                {
+                    vencedor=b3
+                    alert(vencedor + " " + "Ganhou!")
+                }
+
+                
+                if(contJogadas==9 && vencedor=="Ninguém")
+                {
+                    alert("Jogo Empatado!")
+                }
+
+                
+                
+                
+            }
+            
+
+
+            if(vencedor!="Ninguém")
+            {
+                if (vencedor=="X") {
+                    perdedor="O"
+                }if (vencedor=="O") {
+                    perdedor="X"
+                }
+                document.getElementById("divResultado").innerHTML = vencedor + " " + "Ganhou!"+ " " + perdedor + " " + "Perdeu! :(" + `<img src ="https://media3.giphy.com/media/JEXY6mVo5dRsY/giphy.webp?cid=ecf05e471qs723fzizdznabiu20lcr9rjtx0krroqee34s4j&rid=giphy.webp&ct=g" >`
+
+            }
+            
+            
+        }
+        
+    
+
+        function Reset()
+        {
+            document.getElementById("botão1").innerText = ""
+            document.getElementById("botão2").innerText = ""
+            document.getElementById("botão3").innerText = ""
+            document.getElementById("botão4").innerText = ""
+            document.getElementById("botão5").innerText = ""
+            document.getElementById("botão6").innerText = ""
+            document.getElementById("botão7").innerText = ""
+            document.getElementById("botão8").innerText = ""
+            document.getElementById("botão9").innerText = ""
+            contJogadas = 0
+            vencedor = "Ninguém"
+            document.getElementById("divResultado").innerHTML = ""
+
+        }
+    
+
+    </script>
+</body>
+</html>
